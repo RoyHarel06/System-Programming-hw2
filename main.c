@@ -3,7 +3,7 @@
 
 int main()
 {
-    int* mat = malloc(MAT_HEIGHT*MAT_WIDTH*MAT_CELL_SIZE);
+    int* mat = malloc(MAT_VERTICE*MAT_VERTICE*MAT_CELL_SIZE);
 
     char command = 'A';
     scanf("%c", &command);

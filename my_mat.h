@@ -1,6 +1,7 @@
-#define MAT_HEIGHT      10
-#define MAT_WIDTH       10
+#define MAT_VERTICE      10
 #define MAT_CELL_SIZE   sizeof(int)
+
+#define MAT_CELL(i, j, mat) ( mat+(i*MAT_CELL_SIZE)+(j*MAT_VERTICE*MAT_CELL_SIZE) )
 
 /*
  * Initilizes matrix 'mat' using the user's input.
