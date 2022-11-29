@@ -1,42 +1,41 @@
 #include <stdio.h>
-#include "numClass.h"
+#include "my_mat.h"
 
 int main()
 {
-    int start, end;
-    scanf("%d %d", &start, &end);
+    int* mat = malloc(MAT_HEIGHT*MAT_WIDTH*MAT_CELL_SIZE);
 
-    printf("The Armstrong numbers are:");
-    for(int i = start; i <= end; i++)
+    char command = 'A';
+    scanf("%c", &command);
+    while(command != 'D')
     {
-        if(isArmstrong(i))
-            printf(" %d", i);
-    }
-    printf("\n");
+        if (command == 'A') // init 'mat'
+        {
+            userInitMatrix(mat);
+        }
+        else if (command == 'B')    // check existance of path
+        {
+            int i = 0, j = 0;
+            scanf("%d %d", &i, &j);
 
-    printf("The Palindromes are:");
-    for(int i = start; i <= end; i++)
-    {
-        if(isPalindrome(i))
-            printf(" %d", i);
-    }
-    printf("\n");
+            if (checkForPath(mat, i, j))
+                printf("True");
+            else
+                printf("False");
+        }
+        else if (command == 'C')    // find value of shortest path
+        {
+            int i = 0, j = 0;
+            scanf("%d %d", &i, &j);
 
-    printf("The Prime numbers are:");
-    for(int i = start; i <= end; i++)
-    {
-        if(isPrime(i))
-            printf(" %d", i);
-    }
-    printf("\n");
+            int result = findShortestPath(mat, i, j);
+            printf("%d", result);
+        }
 
-    printf("The Strong numbers are:");
-    for(int i = start; i <= end; i++)
-    {
-        if(isStrong(i))
-            printf(" %d", i);
+        printf("\n");
     }
-    printf("\n");
+
+    free(mat);
 
     return 0;
 }
