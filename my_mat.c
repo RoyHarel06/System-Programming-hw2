@@ -11,12 +11,10 @@ void userInitMatrix(int* mat)
             scanf("%d", &temp);
             mat[MAT_CELL(i, j)] = temp;
 
-            if (i != j && mat[MAT_CELL(i, j)] == 0)
+            if (mat[MAT_CELL(i, j)] == 0)
                 mat[MAT_CELL(i, j)] = -1;
         }
     }
-
-    //printf("%d %d %d\n%d %d %d\n%d %d %d\n", mat[0], mat[1], mat[2],mat[3], mat[4], mat[5],mat[6], mat[7], mat[8]);
 }
 
 void copyArray(int* source, int* destination, int cell_count)
@@ -61,5 +59,5 @@ int checkForPath(int* mat, int i, int j)
     if (result == -1)
         return 0;
     else
-        return result;
+        return 1;
 }
