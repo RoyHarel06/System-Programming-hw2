@@ -1,4 +1,5 @@
 #include "my_mat.h"
+#include <stdio.h>
 
 void userInitMatrix(int* mat)
 {
@@ -6,18 +7,30 @@ void userInitMatrix(int* mat)
     {
         for (int j = 0; j < MAT_VERTICE; j++)
         {
-            scanf("%d", (int*) *MAT_CELL(i, j, mat));
+            int temp = 0;
+            scanf("%d", &temp);
+            mat[MAT_CELL(i, j)] = temp;
 
-            if (i != j && *MAT_CELL(i, j, mat) == 0)
-                *MAT_CELL(i, j, mat) = -1;
+            if (i != j && mat[MAT_CELL(i, j)] == 0)
+                mat[MAT_CELL(i, j)] = -1;
         }
+    }
+
+    //printf("%d %d %d\n%d %d %d\n%d %d %d\n", mat[0], mat[1], mat[2],mat[3], mat[4], mat[5],mat[6], mat[7], mat[8]);
+}
+
+void copyArray(int* source, int* destination, int cell_count)
+{
+    for (int i = 0; i < cell_count; i++)
+    {
+        destination[i] = source[i];
     }
 }
 
 int findShortestPath(int* mat, int i, int j)
 {
-    int* temp = malloc(MAT_VERTICE*MAT_VERTICE*MAT_CELL_SIZE);
-    memcpy(temp, mat, MAT_VERTICE*MAT_VERTICE*MAT_CELL_SIZE);
+    int temp[MAT_VERTICE*MAT_VERTICE];
+    copyArray(mat, temp, MAT_VERTICE*MAT_VERTICE);
 
     for (int k = 0; k < MAT_VERTICE; k++)
     {
@@ -25,14 +38,19 @@ int findShortestPath(int* mat, int i, int j)
         {
             for (int t = 0; t < MAT_VERTICE; t++)
             {
-                if (*MAT_CELL(p, t, temp) > *MAT_CELL(p, k, temp) + *MAT_CELL(k, t, temp))
-                    *MAT_CELL(p, t, temp) = *MAT_CELL(p, k, temp) + *MAT_CELL(k, t, temp);
+                if ( !((temp[MAT_CELL(p, k)] == -1) || (temp[MAT_CELL(k, t)] == -1)) )
+                {
+                    if (temp[MAT_CELL(p, t)] == -1 || temp[MAT_CELL(p, t)] > temp[MAT_CELL(p, k)] + temp[MAT_CELL(k, t)])
+                    {
+                        temp[MAT_CELL(p, t)] = temp[MAT_CELL(p, k)] + temp[MAT_CELL(k, t)];
+                        //printf("(p,t,k) = (%d,%d,%d) ; p-t = %d p-k = %d ; k-t = %d\n", p, t, k, temp[MAT_CELL(p, t)], temp[MAT_CELL(p, k)], temp[MAT_CELL(k, t)]);
+                    }
+                }
             }
         }
     }
 
-    int result = *MAT_CELL(i, j, temp);
-    free(temp);
+    int result = temp[MAT_CELL(i, j)];
 
     return result;
 }

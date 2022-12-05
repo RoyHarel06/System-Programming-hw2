@@ -1,12 +1,12 @@
 CC=gcc
 
-my_mat.o: my_mat.c my_mat.h 
-	$(CC) -c my_mat.c
+all: connections
 
 connections: main.c my_mat.o
 	$(CC) -Wall -o connections main.c my_mat.o
 
-all: connections
+my_mat.o: my_mat.c my_mat.h 
+	$(CC) -c my_mat.c
 	
 clean:
-	rm -f *.o *.a *.so maindrec maindloop mains
+	rm -f *.o *.a *.so connections

@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "my_mat.h"
 
 int main()
 {
-    int* mat = malloc(MAT_VERTICE*MAT_VERTICE*MAT_CELL_SIZE);
+    int mat[MAT_VERTICE*MAT_VERTICE];
 
     char command = 'A';
     scanf("%c", &command);
@@ -19,9 +20,9 @@ int main()
             scanf("%d %d", &i, &j);
 
             if (checkForPath(mat, i, j))
-                printf("True");
+                printf("True\n");
             else
-                printf("False");
+                printf("False\n");
         }
         else if (command == 'C')    // find value of shortest path
         {
@@ -29,13 +30,11 @@ int main()
             scanf("%d %d", &i, &j);
 
             int result = findShortestPath(mat, i, j);
-            printf("%d", result);
+            printf("%d\n", result);
         }
 
-        printf("\n");
+        scanf("%c", &command);
     }
-
-    free(mat);
 
     return 0;
 }
