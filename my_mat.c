@@ -15,6 +15,21 @@ void userInitMatrix(int* mat)
                 mat[MAT_CELL(i, j)] = -1;
         }
     }
+
+    /*
+    for (int i = 0; i < MAT_VERTICE; i++)
+    {
+        for (int j = 0; j < MAT_VERTICE; j++)
+        {
+            if (mat[MAT_CELL(i, j)] > -1)
+                printf(" %d ", mat[MAT_CELL(i, j)]);
+            else
+                printf("%d ", mat[MAT_CELL(i, j)]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    */
 }
 
 void copyArray(int* source, int* destination, int cell_count)
@@ -27,6 +42,9 @@ void copyArray(int* source, int* destination, int cell_count)
 
 int findShortestPath(int* mat, int i, int j)
 {
+    if (i == j)
+        return -1;
+
     int temp[MAT_VERTICE*MAT_VERTICE];
     copyArray(mat, temp, MAT_VERTICE*MAT_VERTICE);
 
